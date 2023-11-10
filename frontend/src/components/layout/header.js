@@ -1,4 +1,5 @@
 import React, { Fragment} from "react"
+import {Route, Link} from "react-router-dom"
 import '../../App.css'
 
 const Header = () => {
@@ -7,7 +8,9 @@ const Header = () => {
         <nav className="navbar row">
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <img src="/images/babadull_logo.png" alt="BabaDull logo" width="300" />
+        <Link to="/">
+        <img src="/images/babadull_logo.png" alt="BabaDull logo" width="300" />
+        </Link>
         </div>
       </div>
 
@@ -28,10 +31,24 @@ const Header = () => {
       </div>
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <button className="btn" id="login_btn">Login</button>
-
         <span id="cart" className="ml-3">Cart</span>
-        <span className="ml-1" id="cart_count">0</span>
+        <span className="ml-1" id="cart_count">100</span>
+        
+        <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>
+
+        <div className="ml-4 dropdown d-inline">
+          <Link to="#!" className="btn dropdown-toggle text-white" type="button" id="dropDownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <figure className="avatar avatar-nav">
+                  <img src="/images/user-logo.png" alt="User"/>  
+              </figure> 
+          </Link>
+          <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
+              <Link className="dropdown-item" to="/da">Dashboard</Link>
+              <Link className="dropdown-item" to="/me">Profile</Link>
+              <Link className="dropdown-item text-danger" to="/">Logout</Link>  
+          </div>
+        </div>
       </div>
     </nav>
     </Fragment>
