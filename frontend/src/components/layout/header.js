@@ -44,8 +44,9 @@ const Header = () => {
               </figure> 
           </Link>
           <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
-              <Link className="dropdown-item" to="/da">Dashboard</Link>
+              <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
               <Link className="dropdown-item" to="/me">Profile</Link>
+              <Link className="dropdown-item" to="/messages">Messages</Link>
               <Link className="dropdown-item text-danger" to="/">Logout</Link>  
           </div>
         </div>
