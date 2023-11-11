@@ -4,7 +4,14 @@ import {Route, Link} from 'react-router-dom'
 const Role = () => {
     return (
             <div className="col-12 col-md-10">
+              <br></br>
+             <div className="row pr-"> 
+              <Link className="btn btn-success" to="/dashboard">
+                  Back
+              </Link>
+              </div>
               <h1 className="my-4">Role Editor</h1>
+              
         
               <div className="row pr-4">
                 <div className="col-xl-12 col-sm-12 mb-3">

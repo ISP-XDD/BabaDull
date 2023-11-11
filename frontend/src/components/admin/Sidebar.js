@@ -30,7 +30,7 @@ const Sidebar = () => {
                     </li>
 
                     <li>
-                        <a href="#"><i className="fas fa-users"></i> Users</a>
+                        <Link to="/dashboard/users"><i className="fas fa-users"></i> Users</Link>
                     </li>
 
                     <li>

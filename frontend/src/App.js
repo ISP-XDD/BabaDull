@@ -13,6 +13,7 @@ import Profile from './components/user/Profile'
 //Admin imports
 import Dashboard from './components/admin/Dashboard'
 import Role from './components/admin/Role'
+import Users from './components/admin/Users'
 
 //Message imports
 import Msg from './components/chat/Msg'
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/me" element={<Profile />} />\
                 <Route path="/messages" element={<Msg />} />
                 <Route path="/dashboard/role" element={<Role />} />
+                <Route path="/dashboard/users" element={<Users />} />
 
             </Routes>
           </div>
