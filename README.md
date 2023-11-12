@@ -5,6 +5,7 @@ It's a small information system designed to implement the requirements of module
 
 ### Installing yarn
 ```bash
+    corepack enable
     yarn install
 ```
 ### Search yarn packages [here](https://yarnpkg.com/)
