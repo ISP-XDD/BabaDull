@@ -23,9 +23,11 @@ const Header = () => {
             placeholder="Enter Product Name ..."
           />
           <div className="input-group-append">
+            <Link to="/search">
             <button id="search_btn" className="btn">
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
+            </Link>
           </div>
         </div>
       </div>

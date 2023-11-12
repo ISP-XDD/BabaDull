@@ -21,6 +21,10 @@ import RoleEdit from './components/admin/RoleEdit'
 import Msg from './components/chat/Msg'
 import Product from './components/product/Product';
 
+//Search imports
+import Search from './components/search/Search';
+
+
 function App() {
   return (
     <Router>
@@ -29,16 +33,15 @@ function App() {
           <div className="container container-fluid">
             <Routes>
                 <Route path="/" element={<Home />} />
-                
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/me" element={<Profile />} />\
+                <Route path="/me" element={<Profile />} />
                 <Route path="/messages" element={<Msg />} />
                 <Route path="/dashboard/role" element={<Role />} />
                 <Route path="/dashboard/users" element={<Users />} />
                 <Route path="/dashboard/role/add" element={<RoleAdd />} />  
                 <Route path="/dashboard/role/edit" element={<RoleEdit />} />
-
+                <Route path="/search" element={<Search />} />
                 <Route path="/product" element={<Product />} />
 
             </Routes>
