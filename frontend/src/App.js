@@ -19,6 +19,7 @@ import RoleEdit from './components/admin/RoleEdit'
 
 //Message imports
 import Msg from './components/chat/Msg'
+import Product from './components/product/Product';
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
                 <Route path="/dashboard/users" element={<Users />} />
                 <Route path="/dashboard/role/add" element={<RoleAdd />} />  
                 <Route path="/dashboard/role/edit" element={<RoleEdit />} />
+
+                <Route path="/product" element={<Product />} />
 
             </Routes>
           </div>
