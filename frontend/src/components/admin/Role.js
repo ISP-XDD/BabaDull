@@ -6,7 +6,7 @@ const Role = () => {
             <div className="col-12 col-md-10">
               <br></br>
              <div className="row pr-"> 
-              <Link className="btn btn-success" to="/dashboard">
+              <Link className="btn btn-warning" to="/dashboard">
                   Back
               </Link>
               </div>
@@ -31,7 +31,7 @@ const Role = () => {
                       </div>
                       <Link
                         className="card-footer text-white clearfix small z-1"
-                        to={`/admin/edit-role/$`}
+                        to={`/dashboard/role/edit`}
                       >
                         <span className="float-left">View Details</span>
                         <span className="float-right">
@@ -48,7 +48,7 @@ const Role = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">Add Role<br /> <b>inf</b></div>
                     </div>
-                    <Link className="card-footer text-white clearfix small z-1" to="/admin/add-role">
+                    <Link className="card-footer text-white clearfix small z-1" to="/dashboard/role/add">
                       <span className="float-left">Add New Role</span>
                       <span className="float-right">
                         <i className="fa fa-angle-right"></i>

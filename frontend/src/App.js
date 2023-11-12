@@ -14,6 +14,8 @@ import Profile from './components/user/Profile'
 import Dashboard from './components/admin/Dashboard'
 import Role from './components/admin/Role'
 import Users from './components/admin/Users'
+import RoleAdd from './components/admin/RoleAdd'
+import RoleEdit from './components/admin/RoleEdit'
 
 //Message imports
 import Msg from './components/chat/Msg'
@@ -33,6 +35,8 @@ function App() {
                 <Route path="/messages" element={<Msg />} />
                 <Route path="/dashboard/role" element={<Role />} />
                 <Route path="/dashboard/users" element={<Users />} />
+                <Route path="/dashboard/role/add" element={<RoleAdd />} />  
+                <Route path="/dashboard/role/edit" element={<RoleEdit />} />
 
             </Routes>
           </div>
