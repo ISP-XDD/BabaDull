@@ -40,6 +40,9 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/me" element={<Profile />} />
                 <Route path="/messages" element={<Msg />} />
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/inventory/edit" element={<InventoryEdit />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route path="/dashboard/role" element={<Role />} />
                 <Route path="/dashboard/users" element={<Users />} />
                 <Route path="/dashboard/role/add" element={<RoleAdd />} />  
