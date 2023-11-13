@@ -24,6 +24,10 @@ import Inventory from './components/inventory/Inventory';
 import Upload from './components/upload/Upload';
 import InventoryEdit from './components/inventory/InventoryEdit';
 
+//Search imports
+import Search from './components/search/Search';
+
+
 function App() {
   return (
     <Router>
@@ -32,19 +36,15 @@ function App() {
           <div className="container container-fluid">
             <Routes>
                 <Route path="/" element={<Home />} />
-                
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/me" element={<Profile />} />
-                <Route path="/inventory" element={<Inventory />} />
-                <Route path="/inventory/edit" element={<InventoryEdit />} />
-                <Route path="/upload" element={<Upload />} />
                 <Route path="/messages" element={<Msg />} />
                 <Route path="/dashboard/role" element={<Role />} />
                 <Route path="/dashboard/users" element={<Users />} />
                 <Route path="/dashboard/role/add" element={<RoleAdd />} />  
                 <Route path="/dashboard/role/edit" element={<RoleEdit />} />
-
+                <Route path="/search" element={<Search />} />
                 <Route path="/product" element={<Product />} />
 
             </Routes>
