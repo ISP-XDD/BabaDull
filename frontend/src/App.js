@@ -20,6 +20,9 @@ import RoleEdit from './components/admin/RoleEdit'
 //Message imports
 import Msg from './components/chat/Msg'
 import Product from './components/product/Product';
+import Inventory from './components/inventory/Inventory';
+import Upload from './components/upload/Upload';
+import InventoryEdit from './components/inventory/InventoryEdit';
 
 //Search imports
 import Search from './components/search/Search';
