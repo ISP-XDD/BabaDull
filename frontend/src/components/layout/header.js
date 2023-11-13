@@ -1,36 +1,87 @@
-import React, { Fragment} from "react"
+import React, { Fragment, useState} from "react"
 import {Route, Link} from "react-router-dom"
 import '../../App.css'
 
 const Header = () => {
+  const [tags, setTags] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+const SearchBar = () => {
+  const [tags, setTags] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+};
+
+
+  const handleAddTag = () => {
+    if (inputValue.trim() !== '' && !tags.includes(inputValue)) {
+      setTags([...tags, inputValue]);
+      setInputValue('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    const updatedTags = tags.filter((tag) => tag !== tagToRemove);
+    setTags(updatedTags);
+  };
+
+
+
   return (
     <Fragment>
-        <nav className="navbar row">
-      <div className="col-12 col-md-3">
-        <div className="navbar-brand">
-        <Link to="/">
-        <img src="/images/babadull_logo.png" alt="BabaDull logo" width="300" />
-        </Link>
+      
+      <nav className="navbar row">
+        
+        <div className="col-12 col-md-3">
+          <div className="navbar-brand">
+            <Link to="/">
+              <img src="/images/babadull_logo.png" alt="BabaDull logo" width="300" />
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div className="col-12 col-md-6 mt-2 mt-md-0">
-        <div className="input-group">
+        <div className="col-12 col-md-6 mt-2 mt-md-0">
+          <div className="input-group">
           <input
             type="text"
             id="search_field"
             className="form-control"
             placeholder="Enter Product Name ..."
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault(); // Prevents the default behavior of the Enter key (e.g., form submission)
+                handleAddTag();
+              }
+            }}
           />
-          <div className="input-group-append">
+            <div className="input-group-append">
             <Link to="/search">
-            <button id="search_btn" className="btn">
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </button>
-            </Link>
+              <button id="search_btn" className="btn">
+                <i className="fa fa-search" aria-hidden="true"></i>
+              </button>
+              </Link>
+            </div>
+          </div>
+          <div className="mt-2">
+            {tags.map((tag) => (
+              <span key={tag} className="badge badge-pill badge-warning mr-2">
+                {tag}{' '}
+                <button
+                  type="button"
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleRemoveTag(tag)}
+                >
+                  &times;
+                </button>
+              </span>
+            ))}
           </div>
         </div>
-      </div>
+
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
         <span id="cart" className="ml-3">Cart</span>
@@ -53,9 +104,20 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <div className="col-12 col-md-10 mt-1 mt-md-6 text-left text-md-left">
+          {/* Links with orange text */}
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+          <Link to="/search" className="text-orange ml-3" style={{ color: 'orange' }}>digital storage</Link>
+        </div>
     </nav>
+
     </Fragment>
   )
 }
 
-export default Header
+export default Header;
