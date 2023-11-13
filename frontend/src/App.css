@@ -52,6 +52,13 @@ nav {
   font-family: calibri;
 }
 
+#upload_product_btn,
+#view_btn {
+  background-color: #febd69;
+  padding: 0.4rem 1.8rem;
+  font-family: calibri;
+}
+
 #cart {
   font-size: 1rem;
   color: white;

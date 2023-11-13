@@ -20,6 +20,9 @@ import RoleEdit from './components/admin/RoleEdit'
 //Message imports
 import Msg from './components/chat/Msg'
 import Product from './components/product/Product';
+import Inventory from './components/inventory/Inventory';
+import Upload from './components/upload/Upload';
+import InventoryEdit from './components/inventory/InventoryEdit';
 
 function App() {
   return (
@@ -32,7 +35,10 @@ function App() {
                 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/me" element={<Profile />} />\
+                <Route path="/me" element={<Profile />} />
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/inventory/edit" element={<InventoryEdit />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route path="/messages" element={<Msg />} />
                 <Route path="/dashboard/role" element={<Role />} />
                 <Route path="/dashboard/users" element={<Users />} />

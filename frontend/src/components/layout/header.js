@@ -36,6 +36,8 @@ const Header = () => {
         
         <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>
 
+        <Link to="/upload" className="btn ml-4" id="upload_product_btn">Upload</Link>
+
         <div className="ml-4 dropdown d-inline">
           <Link to="#!" className="btn dropdown-toggle text-white" type="button" id="dropDownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -46,6 +48,7 @@ const Header = () => {
           <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
               <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
               <Link className="dropdown-item" to="/me">Profile</Link>
+              <Link className="dropdown-item" to="/inventory">Inventory</Link> 
               <Link className="dropdown-item" to="/messages">Messages</Link>
               <Link className="dropdown-item text-danger" to="/">Logout</Link>  
           </div>
