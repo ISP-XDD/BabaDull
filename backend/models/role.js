@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const validator = require('validator');
 
 const Role = sequelize.define('Role', {
   role_id: {
@@ -10,6 +11,7 @@ const Role = sequelize.define('Role', {
   pavadinimas: {
     type: DataTypes.STRING,
     allowNull: false,
+    defaultValue: 'Vartotojas',
   },
 });
 
