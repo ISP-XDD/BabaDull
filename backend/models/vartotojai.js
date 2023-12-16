@@ -3,8 +3,8 @@ const sequelize = require('../config/database');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const Vartotojas = sequelize.define('Vartotojas', {
-  vart_id: {
+const Vartotojai = sequelize.define('Vartotojas', {
+ id_Vartotojas: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -44,7 +44,7 @@ const Vartotojas = sequelize.define('Vartotojas', {
   },
   adresas: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   resetPasswordToken: String,
   resetPaswoedExpire: Date,
@@ -55,4 +55,4 @@ Vartotojas.beforeCreate(async (vartotojas, options) => {
   vartotojas.slaptazodis = await bcrypt.hash(vartotojas.slaptazodis, 10);
 });
 
-module.exports = Vartotojas;
+module.exports = Vartotojai;
