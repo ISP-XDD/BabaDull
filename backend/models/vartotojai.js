@@ -1,10 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const Vartotojas = sequelize.define('Vartotojas', {
-  vart_id: {
+const Vartotojai = sequelize.define('Vartotojai', {
+ id_Vartotojas: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -40,19 +39,28 @@ const Vartotojas = sequelize.define('Vartotojas', {
     type: DataTypes.STRING,
     allowNull: false,
     required: [true, 'Prašome įvesti el. pašto adresą.'],
-    validate: [validator.isEmail, 'Neteisingas el. pašto adresas.'],
+    validate: {
+      isEmail: {
+        msg: 'Prašome įvesti teisingą el. pašto adresą.',
+      },
+    }
   },
   adresas: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
-  resetPasswordToken: String,
-  resetPaswoedExpire: Date,
+  id_Role: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+},{
+  timestamps: false,
+  freezeTableName: true,
 });
 
 // Hook to hash the password before creating a new Vartotojas
-Vartotojas.beforeCreate(async (vartotojas, options) => {
+Vartotojai.beforeCreate(async (vartotojas) => {
   vartotojas.slaptazodis = await bcrypt.hash(vartotojas.slaptazodis, 10);
 });
 
-module.exports = Vartotojas;
+module.exports = Vartotojai;

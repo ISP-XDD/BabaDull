@@ -2,17 +2,19 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const validator = require('validator');
 
-const Role = sequelize.define('Role', {
-  role_id: {
+const Roles = sequelize.define('Roles', {
+  id_Role: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  pavadinimas: {
+  Pavadinimas: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'Vartotojas',
   },
+},{
+  timestamps: false,
+  freezeTableName: true,
 });
 
-module.exports = Role;
+module.exports = Roles;
