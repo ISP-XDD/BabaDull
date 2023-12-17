@@ -9,8 +9,8 @@ const Atsiliepimai = require('./atsiliepimai.js');
 const Produktai = require('./produktai.js');
 
 // Define associations if needed
-Roles.hasMany(Vartotojai, { foreignKey: 'id_Role' });
-Vartotojai.belongsTo(Roles, { foreignKey: 'id_Role' });
+Roles.hasMany(Vartotojai, { foreignKey: 'fk_id_Role' });
+Vartotojai.belongsTo(Roles, { foreignKey: 'fk_id_Role' });
 Vartotojai.hasMany(Atsiliepimai, { foreignKey: 'Vartotojasid_Vartotojas' });
 Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' });
 Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
