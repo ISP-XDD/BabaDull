@@ -4,11 +4,11 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 // Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-    const { vartotojo_vardas, slaptazodis, vardas, pavarde, el_pastas, adresas, id_Role } = req.body;
+    const { vartotojo_vardas, slaptazodis, vardas, pavarde, el_pastas, adresas, fk_id_Role } = req.body;
 
     try {
         // Check if the role exists
-        const role = await db.Roles.findByPk(id_Role);
+        const role = await db.Roles.findByPk(fk_id_Role);
         if (!role) {
             return next(new ErrorHandler('Invalid role ID', 400));
         }
@@ -27,24 +27,50 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
             pavarde: pavarde,
             el_pastas: el_pastas,
             adresas: adresas,
-            id_Role: id_Role,
+            fk_id_Role: fk_id_Role,
         })
+
+        const token = vartotojas.getJwtToken();
         
         // Respond with the user information (excluding the password)
         res.status(201).json({
             success: true,
-            vartotojas: {
-                vartotojo_vardas: vartotojas.vartotojo_vardas,
-                vardas: vartotojas.vardas,
-                pavarde: vartotojas.pavarde,
-                el_pastas: vartotojas.el_pastas,
-                adresas: vartotojas.adresas,
-                id_Role: vartotojas.id_Role,
-            },
+            token,
         });
         
     } catch (error) {
         console.error('Error registering user:', error);
         next(new ErrorHandler(error.message, 500));
     }
+});
+
+//Login user => /api/v1/login
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
+    const { el_pastas, slaptazodis } = req.body;
+
+    // Check if email and password is entered by user
+    if (!el_pastas || !slaptazodis) {
+        return next(new ErrorHandler('Please enter email & password', 400));
+    }
+
+    // Finding user in database
+    const user = await db.Vartotojai.findOne({ where: { el_pastas } });
+
+    if (!user) {
+        return next(new ErrorHandler('Invalid Email or Password', 401));
+    }
+
+    // Check if password is correct
+    const isPasswordMatched = await user.comparePassword(slaptazodis);
+
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler('Invalid Email or Password', 401));
+    }
+
+    const token = user.getJwtToken();
+
+    res.status(200).json({
+        success: true,
+        token,
+    })
 });
