@@ -1,6 +1,7 @@
 const db = require('../models/index.js');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const sendToken = require('../utils/jwtToken.js');
 
 // Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -20,7 +21,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         }
 
        //Create a new user and hash the password
-        const vartotojas = await db.Vartotojai.create({
+        const user = await db.Vartotojai.create({
             vartotojo_vardas: vartotojo_vardas,
             slaptazodis: slaptazodis,
             vardas: vardas,
@@ -30,13 +31,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
             fk_id_Role: fk_id_Role,
         })
 
-        const token = vartotojas.getJwtToken();
-        
-        // Respond with the user information (excluding the password)
-        res.status(201).json({
-            success: true,
-            token,
-        });
+        sendToken(user, 200, res)
         
     } catch (error) {
         console.error('Error registering user:', error);
@@ -67,10 +62,18 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler('Invalid Email or Password', 401));
     }
 
-    const token = user.getJwtToken();
+    sendToken(user, 200, res)
+});
+
+//Logout user => /api/v1/logout
+exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
 
     res.status(200).json({
         success: true,
-        token,
+        message: 'Logged out'
     })
 });
