@@ -6,11 +6,15 @@ const sequelize = require('../config/database.js'); // Import the Sequelize inst
 const Vartotojai = require('./vartotojai.js');
 const Roles = require('./roles.js');
 const Atsiliepimai = require('./atsiliepimai.js');
+const Produktai = require('./produktai.js');
 
 // Define associations if needed
 Roles.hasMany(Vartotojai, { foreignKey: 'id_Role' });
 Vartotojai.belongsTo(Roles, { foreignKey: 'id_Role' });
 Vartotojai.hasMany(Atsiliepimai, { foreignKey: 'Vartotojasid_Vartotojas' });
+Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' })
+Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas' } )
+Atsiliepimai.belongsTo(Produktai,  { foreignKey: 'Produktasid_Produktas' })
 
 
 // Synchronize the models with the database
@@ -27,4 +31,5 @@ module.exports = {
   Vartotojai,
   Roles,
   Atsiliepimai,
+  Produktai,
 };
