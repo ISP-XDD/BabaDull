@@ -83,11 +83,11 @@ exports.createProductReview = catchAsyncErrors(async(req, res, next) => {
 //Get product reviews
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
     //const produktas = await db.Produktai.findByPk(req.query.id);
-    const atsiliepimas = await db.Atsiliepimai.findAll();
+    const atsiliepimai = await db.Atsiliepimai.findAll();
 
     res.status(200).json({
         success: true,
-        reviews: Atsiliepimai
+        reviews: atsiliepimai
     });
 
 });
