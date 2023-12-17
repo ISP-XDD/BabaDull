@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const Vartotojai = sequelize.define('Vartotojai', {
  id_Vartotojas: {
@@ -62,5 +63,21 @@ const Vartotojai = sequelize.define('Vartotojai', {
 Vartotojai.beforeCreate(async (vartotojas) => {
   vartotojas.slaptazodis = await bcrypt.hash(vartotojas.slaptazodis, 10);
 });
+
+//Compare user pasword
+Vartotojai.prototype.comparePassword = async function (enteredSlaptazodis){
+  return await bcrypt.compare(enteredSlaptazodis, this.slaptazodis)
+}
+
+// return JWT token
+Vartotojai.prototype.getJwtToken = function () {
+  return jwt.sign(
+    { id: this.id_Vartotojas },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+  );
+};
 
 module.exports = Vartotojai;
