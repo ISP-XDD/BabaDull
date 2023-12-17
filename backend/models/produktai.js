@@ -13,7 +13,7 @@ const Produktai = sequelize.define('Produktai', {
     allowNull: false,
     required: [true, 'Prašome įvesti produkto pavadinima'],
   },
-},{
+}, {
   timestamps: false,
   freezeTableName: true,
 });
