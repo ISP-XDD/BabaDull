@@ -12,7 +12,7 @@ Vartotojai.belongsTo(Roles, { foreignKey: 'fk_id_Role' });
 
 
 // Synchronize the models with the database
-sequelize.sync({ force: true }) // Set force to true to drop tables and recreate them (use with caution)
+sequelize.sync({ force: false }) // Set force to true to drop tables and recreate them (use with caution)
   .then(() => {
     console.log('Database synchronized successfully.');
   })
