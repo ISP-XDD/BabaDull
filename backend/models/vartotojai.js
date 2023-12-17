@@ -49,7 +49,7 @@ const Vartotojai = sequelize.define('Vartotojai', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  id_Role: {
+  fk_id_Role: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
