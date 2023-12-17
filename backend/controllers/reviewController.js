@@ -11,12 +11,10 @@ exports.createProductReview = catchAsyncErrors(async(req, res, next) => {
         const atsiliepimas = {
             antraste: antraste,
             turinys: turinys,
-            data: data,
-            ar_pranesta: ar_pranesta,
-            reitingas: reitingas,
-            reitingu_kiekis: reitingu_kiekis,
             anonimiskumas: anonimiskumas,
-            Vartotojasid_Vartotojas: req.user._id
+            Vartotojasid_Vartotojas: Vartotojasid_Vartotojas,
+            //Vartotojasid_Vartotojas: req.user._id,
+            Produktasid_Produktas:Produktasid_Produktas
         }
 
         const atsiliepimoPaieska = await db.Atsiliepimai.findAll({

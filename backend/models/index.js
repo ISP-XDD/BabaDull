@@ -12,9 +12,9 @@ const Produktai = require('./produktai.js');
 Roles.hasMany(Vartotojai, { foreignKey: 'id_Role' });
 Vartotojai.belongsTo(Roles, { foreignKey: 'id_Role' });
 Vartotojai.hasMany(Atsiliepimai, { foreignKey: 'Vartotojasid_Vartotojas' });
-Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' })
-Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas' } )
-Atsiliepimai.belongsTo(Produktai,  { foreignKey: 'Produktasid_Produktas' })
+Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' });
+Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Atsiliepimai.belongsTo(Produktai,  { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
 
 // Synchronize the models with the database
