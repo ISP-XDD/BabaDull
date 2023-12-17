@@ -16,7 +16,6 @@ Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' });
 Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Atsiliepimai.belongsTo(Produktai,  { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
-
 // Synchronize the models with the database
 sequelize.sync({ force: false }) // Set force to true to drop tables and recreate them (use with caution)
   .then(() => {
