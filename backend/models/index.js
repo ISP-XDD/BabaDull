@@ -5,11 +5,16 @@ const sequelize = require('../config/database.js'); // Import the Sequelize inst
 // Import your models
 const Vartotojai = require('./vartotojai.js');
 const Roles = require('./roles.js');
+const Atsiliepimai = require('./atsiliepimai.js');
+const Produktai = require('./produktai.js');
 
 // Define associations if needed
-Roles.hasMany(Vartotojai, { foreignKey: 'fk_id_Role' });
-Vartotojai.belongsTo(Roles, { foreignKey: 'fk_id_Role' });
-
+Roles.hasMany(Vartotojai, { foreignKey: 'id_Role' });
+Vartotojai.belongsTo(Roles, { foreignKey: 'id_Role' });
+Vartotojai.hasMany(Atsiliepimai, { foreignKey: 'Vartotojasid_Vartotojas' });
+Atsiliepimai.belongsTo(Vartotojai,  { foreignKey: 'Vartotojasid_Vartotojas' });
+Produktai.hasMany(Atsiliepimai, { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Atsiliepimai.belongsTo(Produktai,  { foreignKey: 'Produktasid_Produktas', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
 // Synchronize the models with the database
 sequelize.sync({ force: false }) // Set force to true to drop tables and recreate them (use with caution)
@@ -24,4 +29,6 @@ sequelize.sync({ force: false }) // Set force to true to drop tables and recreat
 module.exports = {
   Vartotojai,
   Roles,
+  Atsiliepimai,
+  Produktai,
 };
