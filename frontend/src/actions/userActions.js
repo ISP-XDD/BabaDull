@@ -6,7 +6,7 @@ import {
     CLEAR_ERRORS
 } from './constants/userConstants'
 
-export const login = (username, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
     try{
         dispatch({ type: LOGIN_REQUEST })
 
@@ -16,7 +16,7 @@ export const login = (username, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/api/v1/login', { username, password }, config)
+        const { data } = await axios.post('/api/v1/login', { email, password }, config)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
