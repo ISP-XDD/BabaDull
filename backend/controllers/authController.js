@@ -65,6 +65,78 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     sendToken(user, 200, res)
 });
 
+// Forgot Password => /api/v1/password/forgot
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await db.Vartotojai.findOne({ where: { el_pastas: req.body.el_pastas } });
+
+    if (!user) {
+        return next(new ErrorHandler('User not found with this email', 404));
+    }
+
+    // Get reset token
+    const resetToken = user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: false });
+
+    // Create reset password url
+    const resetUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
+
+    const message = `Jūsų slaptažodžio nustatymo iš naujo prieigos raktas yra toks:\n\n${resetUrl}\n\nJei neprašėte šio el. laiško, ignoruokite jį.`
+
+    try {
+
+        await sendEmail({
+            email: user.el_pastas,
+            subject: 'BabaDull Slaptažodžio Atgavimas',
+            message
+        })
+
+        res.status(200).json({
+            success: true,
+            message: `Email sent to: ${user.el_pastas}`
+        })
+
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save({ validateBeforeSave: false });
+
+        return next(new ErrorHandler(error.message, 500));
+    }
+});
+
+// Reset Password => /api/v1/password/reset/:token
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+    // Hash URL token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    const user = await db.Vartotojai.findOne({
+        where: {
+            resetPasswordToken,
+            resetPasswordExpire: { [$gt]: Date.now() }
+        }
+    });
+
+    if (!user) {
+        return next(new ErrorHandler('Slaptažodžio nustatymo iš naujo prieigos raktas neteisingas arba pasibaigęs', 400))
+    }
+
+    if (req.body.slaptazodis !== req.body.confirmPassword) {
+        return next(new ErrorHandler('Slaptažodžiai nesutampa', 400))
+    }
+
+    // Setup the new password
+    user.slaptazodis = req.body.slaptazodis;
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    sendToken(user, 200, res)
+});
+
 //Logout user => /api/v1/logout
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
     res.cookie('token', null, {
