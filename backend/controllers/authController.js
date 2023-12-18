@@ -147,6 +147,38 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
+// Update / Change password => /api/v1/password/update
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await db.Vartotojai.findByPk(req.user.id_Vartotojas);
+
+    // Check previous user password
+    const isMatched = await user.comparePassword(req.body.oldPassword);
+    if (!isMatched) {
+        return next(new ErrorHandler('Senas slaptažodis neteisingas', 400));
+    }
+
+    user.slaptazodis = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res)
+});
+
+//Update user profile => /api/v1/me/update
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+    const newUserData = {
+        vardas: req.body.vardas,
+        pavarde: req.body.pavarde,
+        el_pastas: req.body.el_pastas,
+        adresas: req.body.adresas,
+    }
+
+    const user = await db.Vartotojai.update(newUserData, { where: { id_Vartotojas: req.user.id_Vartotojas } });
+
+    res.status(200).json({
+        success: true,
+    })
+});
+
 //Logout user => /api/v1/logout
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
     res.cookie('token', null, {
@@ -159,3 +191,45 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
         message: 'Logged out'
     })
 });
+
+//Admin Routes
+
+//Get all users => /api/v1/admin/users
+exports.allUsers = catchAsyncErrors(async (req, res, next) => {
+    const users = await db.Vartotojai.findAll();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+//Get user details => /api/v1/admin/user/:id
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await db.Vartotojai.findByPk(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not exist with id: ${req.params.id}`));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//Update user profile => /api/v1/admin/user/update/:id
+// exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+//     const newUserData = {
+//         vardas: req.body.vardas,
+//         pavarde: req.body.pavarde,
+//         el_pastas: req.body.el_pastas,
+//         adresas: req.body.adresas,
+//     }
+
+//     const user = await db.Vartotojai.update(newUserData, { where: { id_Vartotojas: req.user.id_Vartotojas } });
+
+//     res.status(200).json({
+//         success: true,
+//     })
+// });
