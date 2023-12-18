@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const Vartotojai = sequelize.define('Vartotojai', {
  id_Vartotojas: {
@@ -54,6 +55,14 @@ const Vartotojai = sequelize.define('Vartotojai', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+
+  resetPasswordToken: {
+    type: DataTypes.STRING,
+  },
+  resetPasswordExpire: {
+    type: DataTypes.DATE,
+  },
+
 },{
   timestamps: false,
   freezeTableName: true,
@@ -78,6 +87,23 @@ Vartotojai.prototype.getJwtToken = function () {
       expiresIn: process.env.JWT_EXPIRES_IN,
     }
   );
+};
+
+// Generate password reset token
+Vartotojai.prototype.getResetPasswordToken = function () {
+  // Generate token
+  const resetToken = crypto.randomBytes(20).toString('hex');
+
+  // Hash and set to resetPasswordToken
+  this.resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Set token expire time
+  this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+
+  return resetToken;
 };
 
 module.exports = Vartotojai;
