@@ -7,7 +7,7 @@ import {
 } from '../constants/userConstants'
 
 //Login
-export const login = (email, password) => async (dispatch) => {
+export const login = (el_pastas, slaptazodis) => async (dispatch) => {
     try{
         dispatch({ type: LOGIN_REQUEST })
 
@@ -16,8 +16,8 @@ export const login = (email, password) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         }
-
-        const { data } = await axios.post('/api/v1/login', { email, password }, config)
+        console.log('Login request data:', { el_pastas, slaptazodis }); // Log the request data
+        const { data } = await axios.post('http://localhost:4000/api/v1/login', { el_pastas, slaptazodis }, config)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LOGIN_FAIL,
-            payload: error.response.data.message
+            payload: error.response ? error.response.data.message : 'An unexpected error occurred',
         })
     }
 }

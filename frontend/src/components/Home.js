@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react"
 import {Link} from "react-router-dom"
 
-import metaData from "./layout/metaData.js"
+import MetaData from "./layout/metaData.js"
 import Loader from "./layout/loader.js"    
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
         <Fragment>
             {/* {loading ? <Loader /> : ( */}
             <Fragment>
-                <metaData title={"Buy Best Products Online"} />
+                <MetaData title={"Buy Best Products Online"} />
                 
                 <h1 id="products_heading">Latest Products</h1>
 

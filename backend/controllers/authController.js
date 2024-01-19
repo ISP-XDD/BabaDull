@@ -42,7 +42,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 //Login user => /api/v1/login
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     const { el_pastas, slaptazodis } = req.body;
-
+    try {
     // Check if email and password is entered by user
     if (!el_pastas || !slaptazodis) {
         return next(new ErrorHandler('Please enter email & password', 400));
@@ -63,6 +63,10 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     }
 
     sendToken(user, 200, res)
+} catch (error) {
+    // Handle other errors (e.g., database errors)
+    return next(new ErrorHandler('Something went wrong', 500));
+}
 });
 
 // Forgot Password => /api/v1/password/forgot

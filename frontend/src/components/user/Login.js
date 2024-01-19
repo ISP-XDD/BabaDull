@@ -32,7 +32,6 @@ const Login = ({history}) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
         dispatch(login(email, password));
     }
 
@@ -40,14 +39,13 @@ const Login = ({history}) => {
         <Fragment>
             {loading ? <Loader /> : (
                 <Fragment>
-                    <metaData title={"Login"} />
+                    <MetaData title={"Login"} />
                     <div className="row wrapper"> 
                     <div className="col-10 col-lg-5">
-                    {/* <form className="shadow-lg" onSubmit={submitHandler}> */}
                     <form className="shadow-lg" onSubmit={submitHandler}>
                         <h1 className="mb-3">Login</h1>
                         <div className="form-group">
-                        <label htmlfor="email_field">Username</label>
+                        <label htmlfor="email_field">Email</label>
                         <input
                             type="email"
                             id="email_field"
