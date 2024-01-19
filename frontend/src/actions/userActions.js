@@ -4,9 +4,10 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     CLEAR_ERRORS
-} from './constants/userConstants'
+} from '../constants/userConstants'
 
-export const login = (username, password) => async (dispatch) => {
+//Login
+export const login = (email, password) => async (dispatch) => {
     try{
         dispatch({ type: LOGIN_REQUEST })
 
@@ -16,7 +17,7 @@ export const login = (username, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/api/v1/login', { username, password }, config)
+        const { data } = await axios.post('/api/v1/login', { email, password }, config)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
