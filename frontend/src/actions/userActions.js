@@ -4,8 +4,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     CLEAR_ERRORS
-} from './constants/userConstants'
+} from '../constants/userConstants'
 
+//Login
 export const login = (email, password) => async (dispatch) => {
     try{
         dispatch({ type: LOGIN_REQUEST })
