@@ -17,13 +17,18 @@ export const login = (el_pastas, slaptazodis) => async (dispatch) => {
             }
         }
         console.log('Login request data:', { el_pastas, slaptazodis }); // Log the request data
-        const { data } = await axios.post('http://localhost:4000/api/v1/login', { el_pastas, slaptazodis }, config)
+        const { data } = await axios.post('/api/v1/login', { el_pastas, slaptazodis }, config)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
         })
 
     } catch (error) {
+        console.error('Login error:', error);
+
+        // Log the entire error object
+        console.log('Full error object:', error);
+
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response ? error.response.data.message : 'An unexpected error occurred',
