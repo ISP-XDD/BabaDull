@@ -76,8 +76,8 @@ const Login = ({history}) => {
                         LOGIN
                         </button>
 
-                        <Link to="/register"> 
-                            <a href="#" className="float-right mt-3">New User?</a>
+                        <Link to="/register" className="float-right mt-3">
+                        <span style={{cursor: 'pointer'}}>New User?</span>
                         </Link>
                     </form>
                     </div>
