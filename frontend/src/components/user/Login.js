@@ -21,7 +21,7 @@ const Login = ({history}) => {
     useEffect(() => {
         if (isAuthenticated) {
             alert.success("Prisijungimas pavyko!");
-            history.push("/");
+            //history.push("/");
         }
     
         if (error) {
